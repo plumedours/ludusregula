@@ -1,5 +1,6 @@
 // src/components/SearchHero.jsx
 import { useId } from "react";
+import { IoSearchOutline } from "react-icons/io5";
 
 export default function SearchHero({ q, onChange, total = 0, filtered = 0 }) {
   const id = useId();
@@ -32,10 +33,7 @@ export default function SearchHero({ q, onChange, total = 0, filtered = 0 }) {
       <div className="relative z-10 p-6 md:p-7">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div
-              className="h-7 w-7 rounded-md"
-              style={{ background: "linear-gradient(90deg,#0abde3,#10ac84)" }}
-            />
+              <IoSearchOutline size={32} />
             <h2 className="text-2xl font-bold tracking-tight text-slate-900">
               Trouvez vos règles en un clin d’œil
             </h2>

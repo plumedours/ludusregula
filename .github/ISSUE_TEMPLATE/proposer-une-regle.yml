@@ -1,0 +1,43 @@
+name: Proposer une règle
+description: Soumettre un nouveau jeu (PDF + vignette) à ajouter à LudusRegula
+title: "[Nouveau jeu] "
+labels: ["nouvelle-règle"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Nom du jeu
+      placeholder: "Les Colons de Catane"
+    validations:
+      required: true
+  - type: input
+    id: id
+    attributes:
+      label: Identifiant (kebab-case)
+      description: "Ex: les-colons-de-catane"
+      placeholder: "les-colons-de-catane"
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Résumé court
+      placeholder: "Développez votre colonie, échangez et construisez pour gagner."
+    validations:
+      required: true
+  - type: input
+    id: tags
+    attributes:
+      label: Tags (séparés par des virgules, minuscules)
+      placeholder: "famille, stratégie, commerce"
+  - type: textarea
+    id: note
+    attributes:
+      label: Notes/Crédits/Source
+      placeholder: "Lien éditeur, version, remarques…"
+  - type: markdown
+    attributes:
+      value: |
+        ### Fichiers
+        Merci d'ajouter vos fichiers **en pièces jointes** à cette issue (PDF + image).  
+        L’équipe se chargera de les intégrer puis de publier.

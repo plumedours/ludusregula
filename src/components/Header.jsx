@@ -1,6 +1,7 @@
 // src/components/Header.jsx
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { FaDiscord } from "react-icons/fa";
 import { withBase } from "../utils/withBase";
 
 export default function Header() {
@@ -17,7 +18,7 @@ export default function Header() {
     <header className="sticky top-0 z-50">
       {/* Bandeau dégradé animé + léger décor */}
       <div className="relative">
-        <div className="bg-gradient-to-r from-[#0abde3] via-[#10ac84] to-[#0abde3]">
+        <div className="bg-linear-to-r from-[#0abde3] via-[#10ac84] to-[#0abde3]">
           <div className="max-w-6xl mx-auto h-16 px-4 flex items-center justify-between">
             {/* Logo + titre */}
             <Link to="/" className="group flex items-center gap-2">
@@ -55,7 +56,7 @@ export default function Header() {
                       {/* Soulignement animé (état actif) */}
                       <span
                         className={[
-                          "absolute -bottom-1 left-0 h-[2px] w-full origin-left rounded",
+                          "absolute -bottom-1 left-0 h-0.5 w-full origin-left rounded",
                           "transition-transform duration-300",
                           isActive
                             ? "scale-x-100 bg-white"
@@ -66,6 +67,17 @@ export default function Header() {
                   )}
                 </NavLink>
               ))}
+
+              {/* Discord link */}
+              <a
+                href="https://discord.gg/Wffka998Xk"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-2 inline-flex h-9 w-9 items-center justify-center rounded-lg text-white/90 hover:bg-white/15 hover:text-white transition"
+                aria-label="Rejoindre notre Discord"
+              >
+                <FaDiscord className="h-5 w-5" />
+              </a>
             </nav>
 
             {/* Burger mobile */}
@@ -172,6 +184,18 @@ export default function Header() {
                   {label}
                 </NavLink>
               ))}
+
+              {/* Discord link mobile */}
+              <a
+                href="https://discord.gg/Wffka998Xk"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-2 rounded-xl px-3 py-3 text-base font-medium text-slate-800 hover:bg-slate-100 transition"
+              >
+                <FaDiscord className="h-5 w-5" />
+                <span>Rejoindre Discord</span>
+              </a>
             </nav>
           </div>
         </div>

@@ -46,6 +46,7 @@ export default function GameDetail() {
     <div className="space-y-5">
       {/* Header fiche */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>{game.summary}</div>
         <div className="flex items-center gap-3">
           <span className="inline-flex items-center px-2 py-0.5 text-[11px] font-semibold rounded-md bg-[#10ac84]/15 text-[#10ac84]">
             PDF

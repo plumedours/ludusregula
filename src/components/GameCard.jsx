@@ -10,7 +10,7 @@ export default function GameCard({ game }) {
   const tags = game.tags || [];
 
   return (
-    <article className="relative rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition hover:-translate-y-0.5 overflow-hidden">
+    <article className="relative rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden">
       {/* Décor subtil sur la carte (derrière le contenu) */}
       <div className="pointer-events-none absolute inset-0">
         <div
@@ -58,10 +58,6 @@ export default function GameCard({ game }) {
               {game.summary}
             </p>
           </div>
-          <div
-            className="h-9 w-9 rounded-lg shrink-0 bg-[#0abde3]"
-            aria-hidden
-          />
         </div>
 
         {!!tags.length && (
