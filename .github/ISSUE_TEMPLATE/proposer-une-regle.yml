@@ -1,8 +1,14 @@
-name: Proposer une règle
-description: Soumettre un nouveau jeu (PDF + vignette) à ajouter à LudusRegula
+name: Proposer une règle de jeu
+description: Soumettre un nouveau jeu (1 PDF + 1 image) à ajouter à LudusRegula
 title: "[Nouveau jeu] "
 labels: ["nouvelle-règle"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        **Astuce :** le champ *Add a title* en haut de la page est le **titre de l’issue** (ex. : *Les Colons de Catane*).
+        L’**Identifiant (kebab-case)** ci-dessous peut être laissé vide : une **suggestion automatique** sera postée en commentaire après envoi, à partir du *Nom du jeu*.
+
   - type: input
     id: name
     attributes:
@@ -10,34 +16,60 @@ body:
       placeholder: "Les Colons de Catane"
     validations:
       required: true
+
   - type: input
     id: id
     attributes:
       label: Identifiant (kebab-case)
-      description: "Ex: les-colons-de-catane"
+      description: "Ex : les-colons-de-catane. Vous pouvez laisser vide : une suggestion sera proposée automatiquement."
       placeholder: "les-colons-de-catane"
     validations:
-      required: true
+      required: false
+
   - type: textarea
     id: summary
     attributes:
       label: Résumé court
-      placeholder: "Développez votre colonie, échangez et construisez pour gagner."
+      placeholder: "Résumé en 1–2 lignes…"
     validations:
       required: true
-  - type: input
+
+  - type: dropdown
     id: tags
     attributes:
-      label: Tags (séparés par des virgules, minuscules)
-      placeholder: "famille, stratégie, commerce"
+      label: Tags (choix multiples)
+      description: "Choisissez les catégories qui décrivent le mieux le jeu."
+      multiple: true
+      options:
+        - famille
+        - stratégie
+        - cartes
+        - coopération
+        - ambiance
+        - expert
+        - 2-joueurs
+        - party
+        - deck-building
+        - placement-ouvriers
+        - pose-de-tuiles
+        - commerce
+        - bluff
+        - rapide
+        - enfants
+
+  - type: checkboxes
+    id: files
+    attributes:
+      label: Fichiers à joindre à l’issue
+      description: "Merci de joindre **exactement** 1 image (vignette) **et** 1 PDF des règles en pièces jointes de l’issue."
+      options:
+        - label: "J’ai joint **1 image** (webp/jpg/png, ≤ 200 KB, ratio ~3:2)."
+          required: true
+        - label: "J’ai joint **1 PDF** (≤ 20 MB) et je détiens les droits/licences pour le partager."
+          required: true
+
   - type: textarea
-    id: note
+    id: notes
     attributes:
-      label: Notes/Crédits/Source
+      label: Notes / Crédits / Source
       placeholder: "Lien éditeur, version, remarques…"
-  - type: markdown
-    attributes:
-      value: |
-        ### Fichiers
-        Merci d'ajouter vos fichiers **en pièces jointes** à cette issue (PDF + image).  
-        L’équipe se chargera de les intégrer puis de publier.

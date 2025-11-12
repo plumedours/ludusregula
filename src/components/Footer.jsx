@@ -1,4 +1,5 @@
 import { FaGithub, FaDiscord, FaHeart } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -20,28 +21,28 @@ export default function Footer() {
             <h3 className="font-semibold text-slate-900 mb-3">Navigation</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <a
+                <Link
                   href="/"
                   className="text-slate-600 hover:text-[#0abde3] transition"
                 >
                   Accueil
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/about"
                   className="text-slate-600 hover:text-[#0abde3] transition"
                 >
                   À propos
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/contribute"
                   className="text-slate-600 hover:text-[#0abde3] transition"
                 >
                   Contribuer
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

@@ -13,38 +13,43 @@ jobs:
           script: |
             const issue = context.payload.issue;
             const body = issue.body || "";
-            // Extract sections rendered by Issue Forms (### headings)
+
+            // Récupère le contenu d'une section Issue Form (titres "### ...")
             const getSection = (title) => {
               const re = new RegExp(`### ${title}\\s+([\\s\\S]*?)(?=\\n### |$)`, "i");
               const m = body.match(re);
               return m ? m[1].trim() : "";
             };
+
             const name = getSection("Nom du jeu");
-            let id = getSection("Identifiant (kebab-case)");
-            // kebabify
+            const rawId = getSection("Identifiant (kebab-case)");
+
+            // Convertit un texte en kebab-case ascii
             const kebab = (s) => {
               return s
-                .normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, '')
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // retire accents
                 .toLowerCase()
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/^-+|-+$/g, '')
-                .replace(/--+/g, '-');
+                .replace(/[^a-z0-9]+/g, '-')  // non-alphanum -> tiret
+                .replace(/^-+|-+$/g, '')      // bords propres
+                .replace(/--+/g, '-');        // tirets doublons
             };
-            const suggestion = kebab(name || "");
             const isKebab = (v) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(v);
+
             if (!name) {
               core.info("No name found; skipping.");
               return;
             }
-            if (id && isKebab(id)) {
+            if (rawId && isKebab(rawId)) {
               core.info("Valid id already provided; skipping.");
               return;
             }
+
+            const suggestion = kebab(name || "");
             if (!suggestion) {
               core.info("No suggestion; skipping.");
               return;
             }
+
             const msg = [
               `Bonjour ! 👋 Merci pour votre proposition.`,
               ``,
@@ -54,8 +59,9 @@ jobs:
               ``,
               `> Vous pouvez utiliser cet identifiant pour nommer vos fichiers :`,
               `> - \`public/rules/${suggestion}.pdf\``,
-              `> - \`public/thumbs/${suggestion}.webp\` (ou .jpg/.png)`
-            ].join("\n");
+              `> - \`public/thumbs/${suggestion}.webp\` (ou .jpg/.png)`,
+            ].join("\\n");
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
