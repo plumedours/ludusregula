@@ -1,26 +1,22 @@
 [
   {
-    "id": "catan",
-    "name": "Les Colons de Catane",
-    "summary": "Développez votre colonie, échangez et construisez pour gagner des points de victoire.",
-    "pdf": "/rules/catan.pdf",
-    "thumb": {
-      "webp": "/thumbs/catan.webp",
-      "jpg": "/thumbs/catan.jpg",
-      "png": "/thumbs/catan.png"
-    },
-    "tags": ["famille", "stratégie", "pose-de-tuiles"]
-  },
-  {
     "id": "foretmixte",
     "name": "Forêt Mixte",
     "summary": "Forêt Mixte est un jeu de cartes stratégique où les joueurs construisent chacun une forêt en plaçant des cartes d'arbres, de flore et de faune pour créer un écosystème équilibré et marquer des points..",
     "pdf": "/rules/foretmixte.pdf",
     "thumb": {
-      "webp": "/thumbs/foretmixte.webp",
-      "jpg": "/thumbs/foretmixte.jpg",
-      "png": "/thumbs/foretmixte.png"
+      "jpg": "/thumbs/foretmixte.jpg"
     },
     "tags": ["nature", "stratégie", "cartes"]
+  },
+  {
+    "id": "catan",
+    "name": "Les Colons de Catane",
+    "summary": "Développez votre colonie, échangez et construisez pour gagner des points de victoire.",
+    "pdf": "/rules/catan.pdf",
+    "thumb": {
+      "jpg": "/thumbs/catan.jpg"
+    },
+    "tags": ["famille", "stratégie", "pose-de-tuiles"]
   }
 ]
