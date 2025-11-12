@@ -1,9 +1,10 @@
+// src/components/Footer.jsx
 import { FaGithub, FaDiscord, FaHeart } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="mt-auto border-t border-slate-200 bg-linear-to-b from-slate-100 to-white">
+    <footer className="mt-auto border-t border-slate-200 bg-gradient-to-b from-slate-100 to-white">
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Section principale */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
@@ -11,8 +12,8 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold text-slate-900 mb-3">LudusRegula</h3>
             <p className="text-sm text-slate-600 leading-relaxed">
-              Votre plateforme communautaire pour partager et découvrir
-              des règles de jeux de société.
+              Votre plateforme communautaire pour partager et découvrir des
+              règles de jeux de société.
             </p>
           </div>
 
@@ -21,28 +22,28 @@ export default function Footer() {
             <h3 className="font-semibold text-slate-900 mb-3">Navigation</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link
-                  href="/"
+                <NavLink
+                  to="/"
                   className="text-slate-600 hover:text-[#0abde3] transition"
                 >
                   Accueil
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
-                  href="/about"
+                <NavLink
+                  to="/about"
                   className="text-slate-600 hover:text-[#0abde3] transition"
                 >
                   À propos
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
-                  href="/contribute"
+                <NavLink
+                  to="/contribute"
                   className="text-slate-600 hover:text-[#0abde3] transition"
                 >
                   Contribuer
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </div>
