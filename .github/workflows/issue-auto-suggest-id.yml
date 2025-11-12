@@ -3,6 +3,10 @@ on:
   issues:
     types: [opened, edited]
 
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   suggest-id:
     runs-on: ubuntu-latest
@@ -14,29 +18,31 @@ jobs:
             const issue = context.payload.issue;
             const body = issue.body || "";
 
-            // Récupère le contenu d'une section Issue Form (titres "### ...")
-            const getSection = (title) => {
+            // Extract section content rendered by Issue Forms (### headings)
+            function getSection(title) {
               const re = new RegExp(`### ${title}\\s+([\\s\\S]*?)(?=\\n### |$)`, "i");
               const m = body.match(re);
-              return m ? m[1].trim() : "";
-            };
+              let val = m ? (m[1] || "").trim() : "";
+              // GitHub writes "No response" for empty fields — ignore it.
+              val = val.replace(/^No response\s*$/i, "").trim();
+              return val;
+            }
 
             const name = getSection("Nom du jeu");
-            const rawId = getSection("Identifiant (kebab-case)");
+            const rawId = getSection("Identifiant \\(kebab-case\\)");
 
-            // Convertit un texte en kebab-case ascii
-            const kebab = (s) => {
-              return s
-                .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // retire accents
+            const kebab = (s) =>
+              s
+                .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
                 .toLowerCase()
-                .replace(/[^a-z0-9]+/g, '-')  // non-alphanum -> tiret
-                .replace(/^-+|-+$/g, '')      // bords propres
-                .replace(/--+/g, '-');        // tirets doublons
-            };
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/^-+|-+$/g, "")
+                .replace(/--+/g, "-");
+
             const isKebab = (v) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(v);
 
             if (!name) {
-              core.info("No name found; skipping.");
+              core.info("No 'Nom du jeu'; skipping.");
               return;
             }
             if (rawId && isKebab(rawId)) {
@@ -44,23 +50,23 @@ jobs:
               return;
             }
 
-            const suggestion = kebab(name || "");
+            const suggestion = kebab(name);
             if (!suggestion) {
               core.info("No suggestion; skipping.");
               return;
             }
 
             const msg = [
-              `Bonjour ! 👋 Merci pour votre proposition.`,
-              ``,
+              "Bonjour ! 👋 Merci pour votre proposition.",
+              "",
               `À partir du **Nom du jeu** saisi (“${name}”), l’identifiant *kebab-case* suggéré est :`,
-              ``,
-              `\`${suggestion}\``,
-              ``,
-              `> Vous pouvez utiliser cet identifiant pour nommer vos fichiers :`,
+              "",
+              "`" + suggestion + "`",
+              "",
+              "> Utilisez cet identifiant pour nommer vos fichiers :",
               `> - \`public/rules/${suggestion}.pdf\``,
-              `> - \`public/thumbs/${suggestion}.webp\` (ou .jpg/.png)`,
-            ].join("\\n");
+              `> - \`public/thumbs/${suggestion}.webp\` (ou .jpg/.png)`
+            ].join("\n");
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,

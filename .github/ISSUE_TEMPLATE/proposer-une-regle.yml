@@ -6,8 +6,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        **Astuce :** le champ *Add a title* en haut de la page est le **titre de l’issue** (ex. : *Les Colons de Catane*).
-        L’**Identifiant (kebab-case)** ci-dessous peut être laissé vide : une **suggestion automatique** sera postée en commentaire après envoi, à partir du *Nom du jeu*.
+        **Astuce :** le champ *Add a title* tout en haut est le **titre de l’issue** (ex. : *Les Colons de Catane*).
+        L’**Identifiant (kebab-case)** peut rester vide : une **suggestion automatique** sera postée après envoi, à partir du *Nom du jeu*.
 
   - type: input
     id: name
@@ -31,6 +31,19 @@ body:
     attributes:
       label: Résumé court
       placeholder: "Résumé en 1–2 lignes…"
+    validations:
+      required: true
+
+  # --- Zone d'UPLOAD dédiée (textarea = zone de drop/clic pour les fichiers) ---
+  - type: textarea
+    id: uploads
+    attributes:
+      label: Fichiers (déposez/collez ici)
+      description: |
+        Déposez **exactement** 2 fichiers en pièces jointes **dans cette zone** :
+        - **1 image** (webp/jpg/png, ≤ 200 KB, ratio ~3:2)
+        - **1 PDF** des règles (≤ 20 MB)
+      placeholder: "Déposez vos fichiers ici →"
     validations:
       required: true
 
@@ -60,8 +73,8 @@ body:
   - type: checkboxes
     id: files
     attributes:
-      label: Fichiers à joindre à l’issue
-      description: "Merci de joindre **exactement** 1 image (vignette) **et** 1 PDF des règles en pièces jointes de l’issue."
+      label: Confirmation des fichiers
+      description: "Merci de confirmer que vos pièces jointes sont conformes."
       options:
         - label: "J’ai joint **1 image** (webp/jpg/png, ≤ 200 KB, ratio ~3:2)."
           required: true
