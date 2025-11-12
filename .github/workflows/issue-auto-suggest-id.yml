@@ -1,0 +1,64 @@
+name: Suggest game id on issue
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  suggest-id:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Suggest kebab-case id
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body || "";
+            // Extract sections rendered by Issue Forms (### headings)
+            const getSection = (title) => {
+              const re = new RegExp(`### ${title}\\s+([\\s\\S]*?)(?=\\n### |$)`, "i");
+              const m = body.match(re);
+              return m ? m[1].trim() : "";
+            };
+            const name = getSection("Nom du jeu");
+            let id = getSection("Identifiant (kebab-case)");
+            // kebabify
+            const kebab = (s) => {
+              return s
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '')
+                .replace(/--+/g, '-');
+            };
+            const suggestion = kebab(name || "");
+            const isKebab = (v) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(v);
+            if (!name) {
+              core.info("No name found; skipping.");
+              return;
+            }
+            if (id && isKebab(id)) {
+              core.info("Valid id already provided; skipping.");
+              return;
+            }
+            if (!suggestion) {
+              core.info("No suggestion; skipping.");
+              return;
+            }
+            const msg = [
+              `Bonjour ! 👋 Merci pour votre proposition.`,
+              ``,
+              `À partir du **Nom du jeu** saisi (“${name}”), l’identifiant *kebab-case* suggéré est :`,
+              ``,
+              `\`${suggestion}\``,
+              ``,
+              `> Vous pouvez utiliser cet identifiant pour nommer vos fichiers :`,
+              `> - \`public/rules/${suggestion}.pdf\``,
+              `> - \`public/thumbs/${suggestion}.webp\` (ou .jpg/.png)`
+            ].join("\n");
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              body: msg
+            });

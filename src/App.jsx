@@ -1,6 +1,7 @@
 // src/App.jsx  (mise à jour pour utiliser le nouveau Header + routes)
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import GameDetail from "./pages/GameDetail";
 import About from "./pages/About";
@@ -24,12 +25,7 @@ export default function App() {
           </Routes>
         </main>
 
-        <footer className="mt-8 border-t border-slate-200 bg-white">
-          <div className="max-w-6xl mx-auto px-4 py-6 text-sm text-slate-600">
-            © {new Date().getFullYear()} LudusRegula — propulsé par React &amp;
-            Vite.
-          </div>
-        </footer>
+        <Footer />
       </div>
     </BrowserRouter>
   );
