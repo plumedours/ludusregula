@@ -78,7 +78,15 @@ export default function Footer() {
         <div className="border-t border-slate-200 pt-6">
           <p className="flex items-center justify-center gap-1.5 text-sm text-slate-600">
             © {new Date().getFullYear()} LudusRegula — Créé avec{" "}
-            <FaHeart className="h-3.5 w-3.5 text-red-500" /> par Maxime Bory
+            <FaHeart className="h-3.5 w-3.5 text-red-500" /> par{" "}
+            <a
+              className="underline decoration-[#0abde3]/40 hover:decoration-[#0abde3]"
+              href="https://github.com/plumedours"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Maxime Bory
+            </a>
           </p>
         </div>
       </div>
