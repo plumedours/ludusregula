@@ -122,7 +122,7 @@ export default function Contribute() {
               Ouvrir le Google Forms
             </a>
             <a
-              href="mailto:contact@example.com?subject=Proposition%20de%20r%C3%A8gle%20de%20jeu"
+              href="mailto:bory.maxime@gmail.com?subject=Proposition%20de%20r%C3%A8gle%20de%20jeu"
               className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-medium hover:bg-slate-50 transition"
             >
               Ou m’écrire par e-mail

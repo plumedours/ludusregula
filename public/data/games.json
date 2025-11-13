@@ -1,22 +1,72 @@
 [
   {
-    "id": "foretmixte",
-    "name": "Forêt Mixte",
-    "summary": "Forêt Mixte est un jeu de cartes stratégique où les joueurs construisent chacun une forêt en plaçant des cartes d'arbres, de flore et de faune pour créer un écosystème équilibré et marquer des points..",
-    "pdf": "/rules/foretmixte.pdf",
-    "thumb": {
-      "jpg": "/thumbs/foretmixte.jpg"
-    },
-    "tags": ["nature", "stratégie", "cartes"]
-  },
-  {
     "id": "catan",
     "name": "Les Colons de Catane",
     "summary": "Développez votre colonie, échangez et construisez pour gagner des points de victoire.",
-    "pdf": "/rules/catan.pdf",
     "thumb": {
-      "jpg": "/thumbs/catan.jpg"
+      "webp": "",
+      "jpg": "/thumbs/catan.jpg",
+      "png": ""
     },
-    "tags": ["famille", "stratégie", "pose-de-tuiles"]
+    "tags": ["famille", "stratégie", "pose-de-tuiles"],
+    "rules": {
+      "type": "hosted",
+      "pdf": "/rules/catan.pdf",
+      "external_url": "",
+      "allow_download": true,
+      "official": {
+        "publisher": "Kosmos",
+        "site_url": "https://www.catan.com/",
+        "designer": "Klaus Teuber",
+        "bgg_url": "https://boardgamegeek.com/boardgame/13/catan"
+      },
+      "links": {
+        "rules_url": "https://google.com",
+        "video_url": "https://youtu.be/xxxxx",
+        "quickstart_url": "https://google.com"
+      },
+      "license": {
+        "kind": "permission",
+        "status": "granted",
+        "text": "Autorisation confirmée par e-mail (10 nov 2025).",
+        "url": "https://google.com",
+        "proof_url": "https://google.com"
+      }
+    }
+  },
+  {
+    "id": "foretmixte",
+    "name": "Forêt Mixte",
+    "summary": "Construisez un écosystème équilibré avec arbres, flore et faune.",
+    "thumb": {
+      "webp": "",
+      "jpg": "/thumbs/foretmixte.jpg",
+      "png": ""
+    },
+    "tags": ["nature", "stratégie", "cartes"],
+    "rules": {
+      "type": "external",
+      "pdf": "",
+      "external_url": "https://editeur.com/foretmixte/regles.pdf",
+      "allow_download": false,
+      "official": {
+        "publisher": "Studio Officiel",
+        "site_url": "https://editeur.com/foretmixte",
+        "designer": "Nom designer",
+        "bgg_url": "BGG url"
+      },
+      "links": {
+        "rules_url": "https://editeur.com/foretmixte/regles",
+        "video_url": "https://google.com",
+        "quickstart_url": ""
+      },
+      "license": {
+        "kind": "copyright",
+        "status": "n/a",
+        "text": "Document hébergé chez l’éditeur.",
+        "url": "https://editeur.com/licence",
+        "proof_url": "https://google.com"
+      }
+    }
   }
 ]

@@ -1,6 +1,20 @@
 // src/components/PdfViewer.jsx
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
+import {
+  IoGlobeOutline,
+  IoLogoYoutube,
+  IoBookOutline,
+  IoDownloadOutline,
+  IoOpenOutline,
+  IoPrintOutline,
+  IoArrowBackOutline,
+  IoArrowForwardOutline,
+  IoRemoveOutline,
+  IoAddOutline,
+  IoRefreshOutline,
+  IoResizeOutline,
+} from "react-icons/io5";
 
 // Worker PDFJS (⚠️ doit correspondre à ta version installée de pdfjs-dist)
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
@@ -9,8 +23,9 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 export default function PdfViewer({
-  file, // URL du PDF (string) — déjà résolu via withBase(...)
-  initialScale = 0.5, // zoom de départ (1 = largeur du conteneur)
+  file, // URL du PDF
+  links = {}, // { site, video, quickstart } → nouveaux liens
+  initialScale = 0.5,
   minScale = 0.5,
   maxScale = 2.0,
   step = 0.1,
@@ -23,7 +38,7 @@ export default function PdfViewer({
   const [containerWidth, setContainerWidth] = useState(800);
   const [pageInput, setPageInput] = useState("1");
 
-  // Responsive: mesurer la largeur dispo
+  // Responsive
   useEffect(() => {
     const update = () => {
       const w = Math.min(
@@ -37,7 +52,6 @@ export default function PdfViewer({
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  // borne page
   useEffect(() => {
     if (!numPages) return;
     setPage((p) => Math.min(Math.max(1, p), numPages));
@@ -52,24 +66,16 @@ export default function PdfViewer({
     setPageInput("1");
   };
 
-  const goPrev = () => {
-    if (canPrev) {
-      setPage((p) => p - 1);
-      setPageInput(String(page - 1));
-    }
-  };
-  const goNext = () => {
-    if (canNext) {
-      setPage((p) => p + 1);
-      setPageInput(String(page + 1));
-    }
-  };
+  const goPrev = () =>
+    canPrev && (setPage(page - 1), setPageInput(String(page - 1)));
+  const goNext = () =>
+    canNext && (setPage(page + 1), setPageInput(String(page + 1)));
 
   const zoomIn = () =>
     setScale((s) => Math.min(maxScale, +(s + step).toFixed(2)));
   const zoomOut = () =>
     setScale((s) => Math.max(minScale, +(s - step).toFixed(2)));
-  const zoomFit = () => setScale(1.0); // largeur du conteneur
+  const zoomFit = () => setScale(1.0);
   const rotate90 = () => setRotate((r) => (r + 90) % 360);
 
   // Raccourcis
@@ -98,7 +104,7 @@ export default function PdfViewer({
     return () => window.removeEventListener("keydown", onKey);
   }, [canNext, canPrev]);
 
-  // Aller à la page (input)
+  // Aller à la page
   const submitPage = (e) => {
     e.preventDefault();
     const n = parseInt(pageInput, 10);
@@ -106,18 +112,22 @@ export default function PdfViewer({
     else setPageInput(String(page));
   };
 
-  // Toolbar
+  const has = (s) => typeof s === "string" && s.trim().length > 0;
+
+  // Toolbar principale
   const Toolbar = useMemo(
     () => (
       <div className="flex flex-wrap items-center justify-between gap-2 p-2 border border-slate-200 bg-white rounded-xl">
         <div className="flex items-center gap-2">
+          {/* Navigation */}
           <button
             onClick={goPrev}
             disabled={!canPrev}
-            className="px-3 py-2 rounded-lg border border-slate-300 bg-white disabled:opacity-40 hover:bg-slate-50"
-            title="Page précédente (←)"
+            className="relative group p-2 rounded-lg border border-slate-300 bg-white disabled:opacity-40 hover:bg-slate-50"
+            aria-label="Page précédente"
           >
-            ←
+            <IoArrowBackOutline className="h-5 w-5" />
+            <span className="tooltip">Page précédente</span>
           </button>
 
           <form onSubmit={submitPage} className="flex items-center gap-2">
@@ -138,78 +148,94 @@ export default function PdfViewer({
           <button
             onClick={goNext}
             disabled={!canNext}
-            className="px-3 py-2 rounded-lg border border-slate-300 bg-white disabled:opacity-40 hover:bg-slate-50"
-            title="Page suivante (→)"
+            className="relative group p-2 rounded-lg border border-slate-300 bg-white disabled:opacity-40 hover:bg-slate-50"
+            aria-label="Page suivante"
           >
-            →
+            <IoArrowForwardOutline className="h-5 w-5" />
+            <span className="tooltip">Page suivante</span>
           </button>
         </div>
 
+        {/* Contrôles PDF */}
         <div className="flex items-center gap-2">
           <button
             onClick={zoomOut}
-            className="px-3 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50"
-            title="Zoom - (Ctrl -)"
+            className="relative group p-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50"
+            aria-label="Zoom -"
           >
-            −
+            <IoRemoveOutline className="h-5 w-5" />
+            <span className="tooltip">Zoom -</span>
           </button>
+
           <div className="w-16 text-center text-sm tabular-nums text-slate-700">
             {Math.round(scale * 100)}%
           </div>
+
           <button
             onClick={zoomIn}
-            className="px-3 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50"
-            title="Zoom + (Ctrl +)"
+            className="relative group p-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50"
+            aria-label="Zoom +"
           >
-            +
+            <IoAddOutline className="h-5 w-5" />
+            <span className="tooltip">Zoom +</span>
           </button>
+
           <button
             onClick={zoomFit}
-            className="px-3 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50"
-            title="Ajuster à la largeur (Ctrl 0)"
+            className="relative group p-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50"
+            aria-label="Ajuster à la largeur"
           >
-            Ajuster
+            <IoResizeOutline className="h-5 w-5" />
+            <span className="tooltip">Ajuster à la largeur</span>
           </button>
+
           <button
             onClick={rotate90}
-            className="px-3 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50"
-            title="Pivoter 90° (Ctrl R)"
+            className="relative group p-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50"
+            aria-label="Pivoter 90°"
           >
-            ⟳
+            <IoRefreshOutline className="h-5 w-5" />
+            <span className="tooltip">Pivoter 90°</span>
           </button>
+
+          {/* Actions PDF */}
           <a
             href={file}
             download
-            className="px-3 py-2 rounded-lg text-white bg-[#0abde3] hover:brightness-110"
-            title="Télécharger"
+            className="relative group p-2 rounded-lg bg-[#0abde3] text-white hover:brightness-110"
+            aria-label="Télécharger le PDF"
           >
-            Télécharger
+            <IoDownloadOutline className="h-5 w-5" />
+            <span className="tooltip">Télécharger le PDF</span>
           </a>
+
           <a
             href={file}
             target="_blank"
             rel="noreferrer"
-            className="px-3 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50"
-            title="Ouvrir dans un onglet"
+            className="relative group p-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50"
+            aria-label="Ouvrir dans un onglet"
           >
-            Ouvrir
+            <IoOpenOutline className="h-5 w-5" />
+            <span className="tooltip">Ouvrir dans un onglet</span>
           </a>
+
           <a
             href={file}
             target="_blank"
             rel="noreferrer"
-            className="px-3 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50"
-            title="Imprimer depuis le navigateur"
+            className="relative group p-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50"
+            aria-label="Imprimer"
           >
-            Imprimer
+            <IoPrintOutline className="h-5 w-5" />
+            <span className="tooltip">Imprimer</span>
           </a>
         </div>
       </div>
     ),
-    [page, pageInput, numPages, scale, canPrev, canNext, file]
+    [page, pageInput, numPages, scale, canPrev, canNext, file, links]
   );
 
-  // Miniatures (strip vertical)
   const Thumbs = useMemo(
     () => (
       <div className="w-28 shrink-0 overflow-auto border border-slate-200 rounded-xl bg-white p-2 max-h-[70vh]">
@@ -265,7 +291,6 @@ export default function PdfViewer({
                 Impossible de charger le PDF.
               </div>
             }
-            onLoadError={(e) => console.error(e)}
           >
             <Page
               pageNumber={page}
@@ -277,6 +302,30 @@ export default function PdfViewer({
           </Document>
         </div>
       </div>
+
+      {/* CSS tooltip inline */}
+      <style>{`
+        .tooltip {
+          position: absolute;
+          bottom: 100%;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: #1f2937;
+          color: #fff;
+          font-size: 0.75rem;
+          padding: 0.25rem 0.5rem;
+          border-radius: 0.375rem;
+          opacity: 0;
+          pointer-events: none;
+          white-space: nowrap;
+          transition: opacity 0.15s ease-in-out, transform 0.15s ease-in-out;
+          margin-bottom: 0.25rem;
+        }
+        .group:hover .tooltip {
+          opacity: 1;
+          transform: translateX(-50%) translateY(-2px);
+        }
+      `}</style>
     </div>
   );
 }

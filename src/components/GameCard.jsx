@@ -2,12 +2,19 @@
 import { Link } from "react-router-dom";
 import { withBase } from "../utils/withBase";
 import ImageWithFallback from "./ImageWithFallback";
+import { FiEye, FiDownload, FiYoutube, FiGlobe } from "react-icons/fi";
 
 export default function GameCard({ game }) {
   const sources = [game.thumb?.webp, game.thumb?.jpg, game.thumb?.png].filter(
     Boolean
   );
   const tags = game.tags || [];
+  const has = (s) => typeof s === "string" && s.trim().length > 0;
+  const siteUrl = game?.rules?.official?.site_url || "";
+  const isHosted = game?.rules?.type === "hosted" && has(game?.rules?.pdf);
+  const pdfUrl = isHosted ? withBase(game.rules.pdf) : "";
+  const videoUrl = game?.rules?.links?.video_url || "";
+  const publisher = game?.rules?.official?.publisher || "";
 
   return (
     <article className="relative rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden">
@@ -28,7 +35,7 @@ export default function GameCard({ game }) {
       </div>
 
       {/* Vignette */}
-      <div className="relative aspect-[3/2] w-full bg-slate-100 z-10">
+      <div className="relative aspect-3/2 w-full bg-slate-100 z-10">
         {sources.length ? (
           <ImageWithFallback
             alt={game.name}
@@ -51,15 +58,19 @@ export default function GameCard({ game }) {
       <div className="relative z-10 p-5">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <h3 className="text-lg font-semibold tracking-tight text-slate-900">
-              {game.name}
-            </h3>
+            <div className="flex flex-row justify-between items-center">
+              <h3 className="text-lg font-semibold tracking-tight text-slate-900">
+                {game.name}
+              </h3>
+              <p className="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-[#10ac84]/15 text-[#10ac84]">
+                {publisher}
+              </p>
+            </div>
             <p className="text-sm text-slate-600 mt-1 line-clamp-3">
               {game.summary}
             </p>
           </div>
         </div>
-
         {!!tags.length && (
           <div className="mt-3 flex flex-wrap gap-1.5">
             {tags.map((t) => (
@@ -73,19 +84,82 @@ export default function GameCard({ game }) {
           </div>
         )}
 
-        <div className="mt-4 flex gap-2">
+        <div className="mt-4 flex flex-wrap gap-4 justify-center">
+          {/* Voir (toujours) */}
           <Link
-            className="inline-flex items-center justify-center px-3 py-2 rounded-xl text-sm font-semibold text-white bg-[#0abde3] hover:brightness-110 transition"
             to={`/game/${game.id}`}
+            className="btn-action-primary relative group"
+            aria-label="Voir la fiche"
           >
-            Ouvrir
+            <FiEye className="h-6 w-6" />
+            <span
+              className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 
+                     bg-gray-800 text-white text-xs rounded px-2 py-1 
+                     opacity-0 group-hover:opacity-100 transition-opacity 
+                     pointer-events-none whitespace-nowrap shadow-lg"
+            >
+              Voir la fiche
+            </span>
           </Link>
+
+          {/* Télécharger (si PDF hébergé) */}
+          {isHosted && (
+            <a
+              href={pdfUrl}
+              download
+              className="btn-action relative group"
+              aria-label="Télécharger le PDF"
+            >
+              <FiDownload className="h-6 w-6" />
+              <span
+                className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 
+                       bg-gray-800 text-white text-xs rounded px-2 py-1 
+                       opacity-0 group-hover:opacity-100 transition-opacity 
+                       pointer-events-none whitespace-nowrap shadow-lg"
+              >
+                Télécharger le PDF
+              </span>
+            </a>
+          )}
+
+          {/* Vidéo (si lien) */}
+          {has(videoUrl) && (
+            <a
+              href={videoUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-action relative group"
+              aria-label="Voir la vidéo d’explication"
+            >
+              <FiYoutube className="h-6 w-6" />
+              <span
+                className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 
+                       bg-gray-800 text-white text-xs rounded px-2 py-1 
+                       opacity-0 group-hover:opacity-100 transition-opacity 
+                       pointer-events-none whitespace-nowrap shadow-lg"
+              >
+                Voir la vidéo
+              </span>
+            </a>
+          )}
+
+          {/* Site officiel (toujours) */}
           <a
-            className="inline-flex items-center justify-center px-3 py-2 rounded-xl text-sm font-medium border border-slate-300 bg-white hover:bg-slate-50 transition"
-            href={withBase(game.pdf)}
-            download
+            href={siteUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-action relative group"
+            aria-label="Aller au site officiel"
           >
-            Télécharger
+            <FiGlobe className="h-6 w-6" />
+            <span
+              className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 
+                     bg-gray-800 text-white text-xs rounded px-2 py-1 
+                     opacity-0 group-hover:opacity-100 transition-opacity 
+                     pointer-events-none whitespace-nowrap shadow-lg"
+            >
+              Site officiel
+            </span>
           </a>
         </div>
       </div>
