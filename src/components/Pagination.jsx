@@ -12,7 +12,7 @@ export default function Pagination({ page, pageCount, onPage }) {
       <button
         onClick={() => onPage(Math.max(1, page - 1))}
         disabled={page <= 1}
-        className="px-3 py-2 rounded-xl text-sm font-medium border border-slate-300 bg-white disabled:opacity-40 hover:bg-slate-50"
+        className="px-3 py-2 rounded-md text-sm font-medium border border-slate-300 bg-white disabled:opacity-40 hover:bg-slate-50"
       >
         ← Précédent
       </button>
@@ -42,7 +42,7 @@ export default function Pagination({ page, pageCount, onPage }) {
       <button
         onClick={() => onPage(Math.min(pageCount, page + 1))}
         disabled={page >= pageCount}
-        className="px-3 py-2 rounded-xl text-sm font-medium border border-slate-300 bg-white disabled:opacity-40 hover:bg-slate-50"
+        className="px-3 py-2 rounded-md text-sm font-medium border border-slate-300 bg-white disabled:opacity-40 hover:bg-slate-50"
       >
         Suivant →
       </button>

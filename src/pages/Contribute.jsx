@@ -2,6 +2,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { withBase } from "../utils/withBase";
+import { GrDocumentText } from "react-icons/gr";
+import { FaGithub } from "react-icons/fa";
+import { CgMoreO } from "react-icons/cg";
+import { IoMailOutline } from "react-icons/io5";
 
 const GITHUB_ISSUE_URL =
   "https://github.com/plumedours/ludusregula/issues/new?template=proposer-une-regle.yml";
@@ -50,8 +54,8 @@ export default function Contribute() {
           </h1>
           <p className="mt-2 text-slate-700">
             Deux façons simples d’ajouter une règle : via un formulaire GitHub
-            ou, pour les non-initiés, via un Google Forms qui
-            m’enverra votre proposition par e-mail.
+            ou, pour les non-initiés, via un Google Forms qui m’enverra votre
+            proposition par e-mail.
           </p>
         </div>
       </section>
@@ -84,16 +88,16 @@ export default function Contribute() {
               href={GITHUB_ISSUE_URL}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-[#10ac84] px-4 py-2 text-sm font-semibold text-white hover:brightness-110 transition"
+              className="inline-flex items-center gap-2 rounded-md bg-[#10ac84] px-4 py-2 text-sm font-semibold text-white hover:brightness-110 transition"
             >
-              <ExternalIcon />
+              <FaGithub />
               Ouvrir le formulaire GitHub
             </a>
             <Link
               to="/about"
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-medium hover:bg-slate-50 transition"
+              className="inline-flex items-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium hover:bg-slate-50 transition"
             >
-              En savoir plus
+              <CgMoreO /> En savoir plus
             </Link>
           </div>
         </div>
@@ -116,15 +120,16 @@ export default function Contribute() {
               href={GOOGLE_FORM_URL}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-[#ff9f43] px-4 py-2 text-sm font-semibold text-white hover:brightness-110 transition"
+              className="inline-flex items-center gap-2 rounded-md bg-[#ff9f43] px-4 py-2 text-sm font-semibold text-white hover:brightness-110 transition"
             >
-              <ExternalIcon />
+              <GrDocumentText />
               Ouvrir le Google Forms
             </a>
             <a
               href="mailto:bory.maxime@gmail.com?subject=Proposition%20de%20r%C3%A8gle%20de%20jeu"
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-medium hover:bg-slate-50 transition"
+              className="inline-flex items-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium hover:bg-slate-50 transition"
             >
+              <IoMailOutline />
               Ou m’écrire par e-mail
             </a>
           </div>
@@ -147,7 +152,7 @@ export default function Contribute() {
               {Array.from({ length: 6 }).map((_, i) => (
                 <div
                   key={i}
-                  className="h-16 rounded-xl border border-slate-200 bg-slate-100 animate-pulse"
+                  className="h-16 rounded-md border border-slate-200 bg-slate-100 animate-pulse"
                 />
               ))}
             </div>
@@ -219,7 +224,7 @@ function ContributorCard({ contributor }) {
     .toUpperCase();
 
   const Content = () => (
-    <div className="flex items-center gap-3 p-4 rounded-xl border border-slate-200 bg-white hover:shadow-md transition">
+    <div className="flex items-center gap-3 p-4 rounded-md border border-slate-200 bg-white hover:shadow-md transition">
       {avatar ? (
         <img
           src={avatar}
@@ -249,24 +254,5 @@ function ContributorCard({ contributor }) {
     </a>
   ) : (
     <Content />
-  );
-}
-
-function ExternalIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        d="M14 3h7v7m0-7L10 14"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M21 14v5a2 2 0 0 1-2 2h-5"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-    </svg>
   );
 }

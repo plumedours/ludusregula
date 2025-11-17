@@ -9,7 +9,7 @@ export default function SearchBar({
 
   return (
     <div className="w-full">
-      <div className="rounded-xl border border-slate-300 bg-white shadow-sm">
+      <div className="rounded-md border border-slate-300 bg-white shadow-sm">
         <input
           value={q}
           onChange={(e) => {
@@ -17,7 +17,7 @@ export default function SearchBar({
             onChange?.(e.target.value);
           }}
           placeholder={placeholder}
-          className="h-12 w-full rounded-xl bg-transparent px-4 outline-none placeholder:text-slate-400 focus:ring-4 focus:ring-[#0abde3]/30"
+          className="h-12 w-full rounded-md bg-transparent px-4 outline-none placeholder:text-slate-400 focus:ring-4 focus:ring-[#0abde3]/30"
           aria-label="Rechercher un jeu"
         />
       </div>

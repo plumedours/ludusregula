@@ -33,14 +33,14 @@ export default function SearchHero({ q, onChange, total = 0, filtered = 0 }) {
       <div className="relative z-10 p-6 md:p-7">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-              <IoSearchOutline size={32} />
+            <IoSearchOutline size={32} />
             <h2 className="text-2xl font-bold tracking-tight text-slate-900">
               Trouvez vos règles en un clin d’œil
             </h2>
           </div>
 
           {/* Stat : nombre total de règles */}
-          <div className="inline-flex items-center rounded-full bg-slate-900/90 px-3 py-1 text-xs font-semibold text-white">
+          <div className="inline-flex items-center rounded-md bg-[#10ac84]/15 text-[#10ac84] px-3 py-1 text-xs font-semibold">
             {total} règle{total > 1 ? "s" : ""} disponible{total > 1 ? "s" : ""}
           </div>
         </div>
@@ -75,7 +75,7 @@ export default function SearchHero({ q, onChange, total = 0, filtered = 0 }) {
               onChange={(e) => onChange?.(e.target.value)}
               placeholder="Rechercher par nom, description…"
               aria-label="Rechercher un jeu"
-              className="h-12 w-full rounded-xl border border-slate-300 bg-white pl-10 pr-10 outline-none ring-0 transition placeholder:text-slate-400 focus:border-[#0abde3] focus:ring-4 focus:ring-[#0abde3]/25"
+              className="h-12 w-full rounded-md border border-slate-300 bg-white pl-10 pr-10 outline-none ring-0 transition placeholder:text-slate-400 focus:border-[#0abde3] focus:ring-4 focus:ring-[#0abde3]/25"
             />
             {/* Bouton effacer */}
             {hasQuery && (
@@ -99,14 +99,14 @@ export default function SearchHero({ q, onChange, total = 0, filtered = 0 }) {
           </div>
 
           {/* Raccourci Ctrl+K (desktop) */}
-          <div className="hidden md:flex items-center gap-1 rounded-xl border border-slate-300 bg-white px-2">
+          {/* <div className="hidden md:flex items-center gap-1 rounded-md border border-slate-300 bg-white px-2">
             <kbd className="rounded-md border border-slate-300 bg-slate-50 px-1.5 py-0.5 text-xs text-slate-600">
               Ctrl
             </kbd>
             <kbd className="rounded-md border border-slate-300 bg-slate-50 px-1.5 py-0.5 text-xs text-slate-600">
               K
             </kbd>
-          </div>
+          </div> */}
         </div>
 
         {/* Ligne d’info résultats */}

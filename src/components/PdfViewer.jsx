@@ -112,12 +112,12 @@ export default function PdfViewer({
     else setPageInput(String(page));
   };
 
-  const has = (s) => typeof s === "string" && s.trim().length > 0;
+  // const has = (s) => typeof s === "string" && s.trim().length > 0;
 
   // Toolbar principale
   const Toolbar = useMemo(
     () => (
-      <div className="flex flex-wrap items-center justify-between gap-2 p-2 border border-slate-200 bg-white rounded-xl">
+      <div className="flex flex-wrap items-center justify-between gap-2 p-2 border border-slate-200 bg-white rounded-md">
         <div className="flex items-center gap-2">
           {/* Navigation */}
           <button
@@ -238,7 +238,7 @@ export default function PdfViewer({
 
   const Thumbs = useMemo(
     () => (
-      <div className="w-28 shrink-0 overflow-auto border border-slate-200 rounded-xl bg-white p-2 max-h-[70vh]">
+      <div className="w-28 shrink-0 overflow-auto border border-slate-200 rounded-md bg-white p-2 max-h-[70vh]">
         <Document
           file={file}
           loading={

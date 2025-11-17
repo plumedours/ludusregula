@@ -88,7 +88,7 @@ export default function GameCard({ game }) {
           {/* Voir (toujours) */}
           <Link
             to={`/game/${game.id}`}
-            className="btn-action-primary relative group"
+            className="btn-action-primary relative group hover:scale-110 transition"
             aria-label="Voir la fiche"
           >
             <FiEye className="h-6 w-6" />
@@ -107,7 +107,7 @@ export default function GameCard({ game }) {
             <a
               href={pdfUrl}
               download
-              className="btn-action relative group"
+              className="btn-action relative group hover:scale-110 transition"
               aria-label="Télécharger le PDF"
             >
               <FiDownload className="h-6 w-6" />
@@ -128,7 +128,7 @@ export default function GameCard({ game }) {
               href={videoUrl}
               target="_blank"
               rel="noreferrer"
-              className="btn-action relative group"
+              className="btn-action relative group hover:scale-110 transition"
               aria-label="Voir la vidéo d’explication"
             >
               <FiYoutube className="h-6 w-6" />
@@ -148,7 +148,7 @@ export default function GameCard({ game }) {
             href={siteUrl}
             target="_blank"
             rel="noreferrer"
-            className="btn-action relative group"
+            className="btn-action relative group hover:scale-110 transition"
             aria-label="Aller au site officiel"
           >
             <FiGlobe className="h-6 w-6" />

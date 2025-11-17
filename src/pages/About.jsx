@@ -1,6 +1,13 @@
 // src/pages/About.jsx
 import { Link } from "react-router-dom";
 import { withBase } from "../utils/withBase";
+import { IoIosSearch } from "react-icons/io";
+import { BsStars } from "react-icons/bs";
+import { GrDocumentText } from "react-icons/gr";
+import { FaRegHandshake } from "react-icons/fa6";
+import { FaDiscord, FaGithub } from "react-icons/fa";
+import { SiGoogleforms } from "react-icons/si";
+import { CgMoreO } from "react-icons/cg";
 
 const GITHUB_ISSUE_URL =
   "https://github.com/plumedours/ludusregula/issues/new?template=proposer-une-regle.yml";
@@ -19,7 +26,7 @@ export default function About() {
           <img
             src={iconUrl}
             alt="LudusRegula"
-            className="h-12 w-12 rounded-xl ring-1 ring-slate-200"
+            className="h-12 w-12 rounded-md ring-1 ring-slate-200"
             loading="eager"
           />
           <div>
@@ -45,28 +52,36 @@ export default function About() {
           </h2>
           <ul className="mt-3 grid gap-3 md:grid-cols-2 text-slate-700">
             <li className="flex gap-3">
-              <Bullet>🔎</Bullet>
+              <div className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-sm bg-[#0abde3]/15 text-[#0abde3] text-sm">
+                <IoIosSearch />
+              </div>
               <div>
                 <strong>Rechercher</strong> un jeu par son nom, filtrer par{" "}
                 <em>tags</em> (famille, stratégie, cartes…).
               </div>
             </li>
             <li className="flex gap-3">
-              <Bullet>📄</Bullet>
+              <div className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-sm bg-[#0abde3]/15 text-[#0abde3] text-sm">
+                <GrDocumentText />
+              </div>
               <div>
                 <strong>Prévisualiser le PDF</strong> des règles directement
                 dans le navigateur, puis le télécharger si besoin.
               </div>
             </li>
             <li className="flex gap-3">
-              <Bullet>✨</Bullet>
+              <div className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-sm bg-[#0abde3]/15 text-[#0abde3] text-sm">
+                <BsStars />
+              </div>
               <div>
                 Interface <strong>simple et lisible</strong> (mobile/desktop),
                 avec pagination (application PWA à venir).
               </div>
             </li>
             <li className="flex gap-3">
-              <Bullet>🤝</Bullet>
+              <div className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-sm bg-[#0abde3]/15 text-[#0abde3] text-sm">
+                <FaRegHandshake />
+              </div>
               <div>
                 Projet <strong>ouvert</strong> : chacun peut proposer une règle
                 de jeu et enrichir la bibliothèque.
@@ -93,26 +108,26 @@ export default function About() {
               href={GITHUB_ISSUE_URL}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-[#10ac84] px-4 py-2 text-sm font-semibold text-white hover:brightness-110 transition"
+              className="inline-flex items-center gap-2 rounded-md bg-[#10ac84] px-4 py-2 text-sm font-semibold text-white hover:brightness-110 transition"
             >
-              <ExternalIcon /> Formulaire GitHub (recommandé)
+              <FaGithub /> Formulaire GitHub (recommandé)
             </a>
             <a
               href={GOOGLE_FORM_URL}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-[#ff9f43] px-4 py-2 text-sm font-semibold text-white hover:brightness-110 transition"
+              className="inline-flex items-center gap-2 rounded-md bg-[#ff9f43] px-4 py-2 text-sm font-semibold text-white hover:brightness-110 transition"
             >
-              <ExternalIcon /> Google Forms (simple)
+              <SiGoogleforms /> Google Forms (simple)
             </a>
             <Link
               to="/contribute"
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-medium hover:bg-slate-50 transition"
+              className="inline-flex items-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium hover:bg-slate-50 transition"
             >
-              Plus de détails
+              <CgMoreO /> Plus de détails
             </Link>
           </div>
-          <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-4 text-sm text-slate-700">
+          <div className="rounded-md border border-slate-200 bg-slate-50/60 p-4 text-sm text-slate-700">
             <strong>Fichiers attendus :</strong> 1 image (webp/jpg/png, ≤
             200&nbsp;KB, ~3:2) + 1 PDF des règles (≤ 20&nbsp;MB). En proposant
             du contenu, vous confirmez disposer des droits de diffusion.
@@ -147,17 +162,17 @@ export default function About() {
                 href={DISCORD_INVITE}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl bg-[#5865F2] px-4 py-2 text-sm font-semibold text-white hover:brightness-110 transition"
+                className="inline-flex items-center gap-2 rounded-md bg-[#5865F2] px-4 py-2 text-sm font-semibold text-white hover:brightness-110 transition"
               >
-                <ExternalIcon /> Rejoindre le Discord
+                <FaDiscord /> Rejoindre le Discord
               </a>
               <a
                 href="https://github.com/plumedours/ludusregula"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-medium hover:bg-slate-50 transition"
+                className="inline-flex items-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium hover:bg-slate-50 transition"
               >
-                <ExternalIcon /> Voir le projet sur GitHub
+                <FaGithub /> Voir le projet sur GitHub
               </a>
             </div>
           </div>
@@ -184,30 +199,5 @@ function Decor({ colorA = "#0abde3", colorB = "#10ac84" }) {
         }}
       />
     </div>
-  );
-}
-function Bullet({ children }) {
-  return (
-    <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-white text-sm">
-      {children}
-    </span>
-  );
-}
-function ExternalIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        d="M14 3h7v7m0-7L10 14"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M21 14v5a2 2 0 0 1-2 2h-5"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-    </svg>
   );
 }

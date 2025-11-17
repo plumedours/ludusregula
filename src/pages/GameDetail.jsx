@@ -64,7 +64,7 @@ export default function GameDetail() {
         <div className="flex items-center gap-2">
           <button
             onClick={shareGame}
-            className="relative group inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white p-2 text-slate-700 hover:bg-slate-50 transition"
+            className="relative group inline-flex items-center justify-center rounded-md border border-slate-300 bg-white p-2 text-slate-700 hover:bg-slate-50 transition"
             aria-label="Partager cette fiche"
           >
             <IoShareSocialSharp className="h-5 w-5" />
@@ -75,7 +75,7 @@ export default function GameDetail() {
 
           <Link
             to="/"
-            className="relative group inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white p-2 hover:bg-slate-50 transition"
+            className="relative group inline-flex items-center justify-center rounded-md border border-slate-300 bg-white p-2 hover:bg-slate-50 transition"
             aria-label="Retour à la liste"
           >
             <IoArrowBack className="h-5 w-5" />
@@ -96,7 +96,7 @@ export default function GameDetail() {
               href={game.rules.external_url}
               target="_blank"
               rel="noreferrer"
-              className="relative group inline-flex items-center justify-center rounded-xl bg-[#10ac84] p-2 text-white hover:brightness-110 transition"
+              className="relative group inline-flex items-center justify-center rounded-md bg-[#10ac84] p-2 text-white hover:brightness-110 transition"
               aria-label="Site officiel"
             >
               <IoGlobeOutline className="h-5 w-5" />
@@ -109,7 +109,7 @@ export default function GameDetail() {
               href={game.rules.links.rules_url}
               target="_blank"
               rel="noreferrer"
-              className="relative group inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white p-2 hover:bg-slate-50 transition"
+              className="relative group inline-flex items-center justify-center rounded-md border border-slate-300 bg-white p-2 hover:bg-slate-50 transition"
               aria-label="Page officielle des règles"
             >
               <IoDocumentText className="h-5 w-5" />
@@ -122,7 +122,7 @@ export default function GameDetail() {
               href={game.rules.links.video_url}
               target="_blank"
               rel="noreferrer"
-              className="relative group inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white p-2 hover:bg-slate-50 transition"
+              className="relative group inline-flex items-center justify-center rounded-md border border-slate-300 bg-white p-2 hover:bg-slate-50 transition"
               aria-label="Vidéo d’explication"
             >
               <IoLogoYoutube className="h-5 w-5" />
